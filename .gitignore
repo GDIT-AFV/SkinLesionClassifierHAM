@@ -1,0 +1,4 @@
+*.zip
+/*.pth
+HAM10000data/
+.ipynb_checkpoints
