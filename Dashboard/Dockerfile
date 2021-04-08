@@ -3,7 +3,7 @@ FROM continuumio/miniconda3
 # Install the conda environment
 COPY dash_environment.yml /
 COPY dash_ham.py /
-COPY model_conv_6classes.pth /
+COPY model_conv_resnext50.pth /
 COPY class.txt /
 COPY fullname.txt /
 RUN conda env update --name base --file dash_environment.yml && conda clean -a
