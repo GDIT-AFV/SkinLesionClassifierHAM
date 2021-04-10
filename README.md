@@ -10,6 +10,7 @@ This repository contains code for
 ## Data
 The HAM10000 dataset was obtained from Harvard Dataverse.
 https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T
+
 A 80/20 train/validation split was applied to the data on a per class basis. The final structure of data folder was
 HAM10000data/train/<class>/<images> and HAM10000data/validation/<class>/<images> where the train directories contained 80% of the images per class and the validation directories contained 20% of the images per class.
 
