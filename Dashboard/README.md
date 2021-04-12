@@ -15,15 +15,16 @@ HAM10000data/train/<class>/<images> and HAM10000data/validation/<class>/<images>
 
 The final distribution of data was:
 
-|Class|Train|Validation
-| --- | ---:| ---:|
-|nv | 5365 | 1342 |
-|mel | 891 | 224 |
-|bkl | 880 | 221 |
-|bcc | 412 | 104 |
-|akiec | 263 | 66 |
-|vasc | 114 | 30 |
-|df | 93 | 24 |
+|Class|Name                         |Benign/Malignant|Train                                        |Validation|
+|-----|-----------------------------|----------------|---------------------------------------------|----------|
+|nv   |melanocytic nevi             |Benign          |5365                                         |1342      |
+|mel  |melanoma                     |Malignant       |891                                          |224       |
+|bkl  |benign keratosis-like lesions|Benign          |880                                          |221       |
+|bcc  |basal cell carcinoma         |Malignant       |412                                          |104       |
+|akiec|Actinic keratoses and intraepithelial carcinoma|Malignant       |263                                          |66        |
+|vasc |vascular lesions             |Benign          |114                                          |30        |
+|df   |dermatofibroma               |Benign          |93                                           |24        |
+
 
 
 ## Retraining
@@ -37,7 +38,7 @@ We retrained each of the modified models for 25 epoches. The accuracy for most m
 
 The metrics for the 7 class assignment is:
 |Model|AUC|Accuracy|Precision|Recall|F1  |
-|-----|:---|:--------|:---------|:------|:----|
+|-----|---|--------|---------|------|----|
 |Resnet18|0.93|0.67    |0.69     |0.67  |0.67|
 |Resnet50|0.93|0.66    |0.67     |0.66  |0.66|
 |Resnext50|0.92|0.67    |0.67     |0.67  |0.67|
