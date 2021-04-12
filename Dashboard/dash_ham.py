@@ -122,7 +122,7 @@ def parse_contents(contents, filename, date):
 
 
     else:
-        output_text = html.H4(f"Please retake your image", style={'color': 'red', 'font-weight' : 'bold' })
+        output_text = html.H3(f"Please retake your image", style={'color': 'red', 'font-weight' : 'bold' })
 
 
     return html.Div([
