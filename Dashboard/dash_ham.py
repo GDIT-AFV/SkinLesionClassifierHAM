@@ -44,7 +44,7 @@ app.layout = html.Div([
         html.Strong('This application then classifies the dermatoscopic image into 1 of 7 classes of skin lesions.', style={'fontSize': 18}),
         html.Br(),
         html.Strong('It will tell you whether to schedule the patient for a consultation based on the classification.', style={'fontSize': 18}),
-        html.Br(aa
+        html.Br(),
         html.Strong('The classifier is trained on the HAM10000 dataset, and is only intended to classify dermatoscopic image like those in the HAM10000 dataset.', style={'fontSize': 18}),
 
     ]),
