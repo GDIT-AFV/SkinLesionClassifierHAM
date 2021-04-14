@@ -38,10 +38,15 @@ preprocess = transforms.Compose([
 
 app.layout = html.Div([
     html.Div([
-        html.H2('Skin Lesion Photo Classifier'),
-        html.Strong('This application detects whether an image needs to be retaken because it is too blurry and/or low contrast.', style={'fontSize': 18}),
+        html.H2('Skin Lesion Dermatoscopic Image Classifier'),
+        html.Strong('This application detects whether an dermatoscopic image needs to be retaken because it is too blurry and/or low contrast.', style={'fontSize': 18}),
         html.Br(),
-        html.Strong('If the image is good enough, it will tell you whether to schedule the patient for a consultation.', style={'fontSize': 18}) 
+        html.Strong('This application then classifies the dermatoscopic image into 1 of 7 classes of skin lesions.', style={'fontSize': 18}),
+        html.Br()
+        html.Strong('It will tell you whether to schedule the patient for a consultation based on the classification.', style={'fontSize': 18}),
+        html.Br()
+        html.Strong('The classifier is trained on the HAM10000 dataset, and is only intended to classify dermatoscopic image like those in the HAM10000 dataset.', style={'fontSize': 18}),
+
     ]),
 
     dcc.Upload(
@@ -78,7 +83,7 @@ def parse_contents(contents, filename, date):
 
     blur_threshold = 15
     contrast_threshold = 0.15
-
+    prob_threshold = 0.5
     blur_measure = cv2.Laplacian(image, cv2.CV_64F).var()
     if blur_measure > blur_threshold:
         blur_message = f"This image is clear. The Laplacian variance is {blur_measure:.2f}, which is greater than the threshold of {blur_threshold:.2f}. Higher is better."
@@ -110,16 +115,13 @@ def parse_contents(contents, filename, date):
     df = pd.DataFrame({'Class':fullname, 'Probability':prob[0].detach().numpy()*100})
     output_table = generate_table(df.sort_values(['Probability'], ascending=[False]))
 
-
+    malig_prob = prob[:,0]+prob[:,1]+prob[:,4]
 
     if blur_measure > blur_threshold and threshold > contrast_threshold:
-        if prediction in ["akiec", "bcc", "mel"]:
+        if malig_prob > prob_threshold:
             output_text = html.H3(f"Please schedule patient for a consultation.", style={'color': 'blue', 'font-weight' : 'bold' })
-        elif prediction in ["bkl", "df", "nv", "vasc"]:
-            output_text = html.H3(f"Patient does not need another appointment.", style={'color': 'green', 'font-weight' : 'bold' })
         else:
-            output_text = html.H3(f"Something went wrong")
-
+            output_text = html.H3(f"Patient does not need another appointment.", style={'color': 'green', 'font-weight' : 'bold' })
 
     else:
         output_text = html.H3(f"Please retake your image", style={'color': 'red', 'font-weight' : 'bold' })
